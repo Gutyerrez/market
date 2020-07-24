@@ -1,9 +1,7 @@
 package io.github.gutyerrez.market.storage.specs;
 
-import io.github.gutyerrez.core.shared.contracts.storages.repositories.specs.DeleteSqlSpec;
 import io.github.gutyerrez.core.shared.contracts.storages.repositories.specs.PreparedStatementCreator;
 import io.github.gutyerrez.market.MarketConstants;
-import io.github.gutyerrez.market.api.MarketItem;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.PreparedStatement;
@@ -12,28 +10,24 @@ import java.sql.PreparedStatement;
  * @author SrGutyerrez
  */
 @RequiredArgsConstructor
-public class DeleteMarketItemSpec extends DeleteSqlSpec<Boolean> {
+public class SelectMarketItemsByOwnerSpec extends SelectMarketItemsSpec {
 
-    private final MarketItem marketItem;
-
-    @Override
-    public Boolean parser(int affectedRows) {
-        return affectedRows == 1;
-    }
+    private final String ownerUUIDString;
 
     @Override
     public PreparedStatementCreator getPreparedStatementCreator() {
         return connection -> {
             String query = String.format(
-                    "DELETE FROM `%s` WHERE `id`=?;",
+                    "SELECT * FROM `%s` WHERE `owner`=?;",
                     MarketConstants.Databases.Mysql.Tables.MARKET_ITEM_TABLE_NAME
             );
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setInt(1, this.marketItem.getId());
+            preparedStatement.setString(1, this.ownerUUIDString);
 
             return preparedStatement;
         };
     }
+
 }
