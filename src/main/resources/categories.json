@@ -1,0 +1,25 @@
+[
+  {
+    "id": "BLOCKS",
+    "display_name": "Blocos",
+    "icon": {
+      "id": 5,
+      "data": 0,
+      "description": [
+        "&7Compre e venda blocos"
+      ],
+      "glow": false
+    },
+    "slot": 0,
+    "items": [
+      {
+        "id": 1,
+        "data": 0
+      },
+      {
+        "id": 1,
+        "data": 1
+      }
+    ]
+  }
+]

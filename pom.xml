@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>gutyerrez.github.io</groupId>
+        <artifactId>super</artifactId>
+        <version>0.1-ALPHA</version>
+    </parent>
+
+    <artifactId>market</artifactId>
+    <name>Market</name>
+
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- paper api -->
+        <dependency>
+            <groupId>org.github.paperspigot</groupId>
+            <artifactId>paperspigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- paper -->
+        <dependency>
+            <groupId>org.github.paperspigot</groupId>
+            <artifactId>paperspigot</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- core -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>core-spigot</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- permissions ex -->
+        <dependency>
+            <groupId>ru.tehkode</groupId>
+            <artifactId>PermissionsEx</artifactId>
+            <version>1.23.4</version>
+        </dependency>
+
+        <!-- vault -->
+        <dependency>
+            <groupId>net.milkbow</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+    </dependencies>
+</project>

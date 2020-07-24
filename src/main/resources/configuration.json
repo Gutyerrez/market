@@ -1,0 +1,19 @@
+{
+  "database": {
+    "mysql": {
+      "host": "0.0.0.0",
+      "user": "root",
+      "password": "1234",
+      "database": "db",
+      "port": 3306
+    }
+  },
+  "inventory": {
+    "personal": {
+
+    },
+    "my_items": {
+
+    }
+  }
+}
