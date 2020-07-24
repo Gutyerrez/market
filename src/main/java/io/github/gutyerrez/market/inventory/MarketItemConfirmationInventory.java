@@ -21,14 +21,28 @@ public class MarketItemConfirmationInventory extends ConfirmInventory {
                         return;
                     }
 
-                    // remover do banco de dados, caso ele não esteja
-                    // cancelar e falar pro jogador que não deu pra comprar
-
                     if (marketItem.getOwner().equals(player.getUniqueId())) {
-                        MarketProvider.Cache.Local.MARKET_ITEM.provide().remove(marketItem.getId());
+                        // remover do banco de dados, caso ele não esteja
+                        // cancelar e falar pro jogador que não deu pra comprar
 
                         InventoryUtils.give(player, marketItem.getItem());
+
+                        player.sendMessage("§eVocê coletou seu item do mercado!");
                     } else {
+                        if (MarketProvider.Hooks.ECONOMY.provide().getBalance(player.getName()) < marketItem.getPrice()) {
+                            player.sendMessage(String.format("§cVocê precisa de %s coins para comprar este item.", marketItem.getPrice()));
+                            return;
+                        }
+
+                        // remover do banco de dados, caso ele não esteja
+                        // cancelar e falar pro jogador que não deu pra comprar
+
+                        MarketProvider.Hooks.ECONOMY.provide().withdrawPlayer(player.getName(), marketItem.getPrice());
+                        MarketProvider.Hooks.ECONOMY.provide().depositPlayer(marketItem.getOwnerName(), marketItem.getPrice());
+
+                        InventoryUtils.give(player, marketItem.getItem());
+
+                        player.sendMessage("§aVocê comprou um item no mercado!");
                     }
                 },
                 onDeny -> {

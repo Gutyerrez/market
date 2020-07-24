@@ -3,6 +3,7 @@ package io.github.gutyerrez.market.api.category;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import io.github.gutyerrez.core.spigot.misc.material.MaterialData;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public class MarketCategoryRegistry {
     }
 
     public static MarketCategory getCategory(ItemStack itemStack) {
+        if (itemStack == null || itemStack.getType() == Material.AIR) {
+            return null;
+        }
+        
         for (MarketCategory marketCategory : MarketCategoryRegistry.CATEGORIES.values()) {
             List<MaterialData> datas = marketCategory.getItems();
 

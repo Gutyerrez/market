@@ -2,6 +2,7 @@ package io.github.gutyerrez.market.command;
 
 import io.github.gutyerrez.core.shared.commands.CommandRestriction;
 import io.github.gutyerrez.core.spigot.commands.CustomCommand;
+import io.github.gutyerrez.market.command.subcommands.MarketSellCommand;
 import io.github.gutyerrez.market.inventory.MarketCategoryListInventory;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,6 +14,10 @@ public class MarketCommand extends CustomCommand {
 
     public MarketCommand() {
         super("mercado", CommandRestriction.IN_GAME);
+
+        this.registerSubCommand(
+                new MarketSellCommand()
+        );
     }
 
     @Override

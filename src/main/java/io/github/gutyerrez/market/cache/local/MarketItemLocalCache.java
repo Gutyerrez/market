@@ -1,5 +1,7 @@
 package io.github.gutyerrez.market.cache.local;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.collect.Maps;
 import io.github.gutyerrez.core.shared.cache.LocalCache;
 import io.github.gutyerrez.market.api.MarketItem;
@@ -8,6 +10,7 @@ import io.github.gutyerrez.market.api.category.MarketCategoryRegistry;
 
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -15,10 +18,12 @@ import java.util.stream.Collectors;
  */
 public class MarketItemLocalCache implements LocalCache {
 
-    private final Map<Integer, MarketItem> CACHE = Maps.newHashMap();
+    private final Cache<Integer, MarketItem> CACHE = Caffeine.newBuilder()
+            .expireAfterWrite(15, TimeUnit.SECONDS)
+            .build(id -> null);
 
     public LinkedList<MarketItem> get(MarketCategory marketCategory) {
-        return this.CACHE.values()
+        return this.CACHE.asMap().values()
                 .stream()
                 .filter(marketItem -> {
                     MarketCategory _marketCategory = MarketCategoryRegistry.getCategory(marketItem.getItem());
@@ -32,8 +37,9 @@ public class MarketItemLocalCache implements LocalCache {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public void remove(Integer id) {
-        this.CACHE.remove(id);
+    // remover isso aqui depois
+    public void add(MarketItem marketItem) {
+        this.CACHE.put(marketItem.getId(), marketItem);
     }
 
 }

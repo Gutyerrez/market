@@ -10,10 +10,23 @@
   },
   "inventory": {
     "personal": {
-
+      "slot": 37,
+      "display_name": "&6Mercado Pessoal",
+      "description": [
+        "&7Estes itens foram colocados",
+        "&7à venda apenas para você",
+        "&7por outros jogadores.",
+        "",
+        "&fItens disponíveis: {available-items}"
+      ]
     },
     "my_items": {
-
+      "slot": 45,
+      "display_name": "&eMeus itens",
+      "description": [
+        "&7Clique para ver e coletar",
+        "&7os seus itens experidados."
+      ]
     }
   }
 }
