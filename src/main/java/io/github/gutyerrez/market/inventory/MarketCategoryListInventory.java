@@ -20,17 +20,24 @@ public class MarketCategoryListInventory extends CustomInventory {
 
         MarketCategoryRegistry.get().forEach(category -> {
             this.setItem(
-                    category.getSlot()
-                    ,
+                    category.getSlot(),
                     new ItemBuilder(
                             category.getIcon()
                     ).lore(
                             "§7Clique para atualizar os itens disponíveis atualmente.",
                             "",
-                            String.format("§fItens disponíveis: §7%d", 0)
-                    ).make(),
+                            String.format(
+                                    "§fItens disponíveis: §7%d",
+                                    category.getAvailableItems()
+                            )
+                    ).amount(category.getAvailableItems())
+                    .make(),
                     (event) -> {
                         Player player = (Player) event.getWhoClicked();
+
+                        if (category.getAvailableItems() <= 0) {
+                            return;
+                        }
 
                         player.openInventory(
                                 new MarketCategoryDetailInventory(player, category, this)

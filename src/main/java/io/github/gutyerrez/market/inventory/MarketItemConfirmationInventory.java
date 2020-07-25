@@ -5,6 +5,7 @@ import io.github.gutyerrez.core.spigot.misc.utils.InventoryUtils;
 import io.github.gutyerrez.core.spigot.misc.utils.ItemBuilder;
 import io.github.gutyerrez.market.MarketProvider;
 import io.github.gutyerrez.market.api.MarketItem;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -41,6 +42,15 @@ public class MarketItemConfirmationInventory extends ConfirmInventory {
                         MarketProvider.Hooks.ECONOMY.provide().depositPlayer(marketItem.getOwnerName(), marketItem.getPrice());
 
                         InventoryUtils.give(player, marketItem.getItem());
+
+                        Player owner = Bukkit.getPlayer(marketItem.getOwner());
+
+                        if (owner != null) {
+                            owner.sendMessage(String.format(
+                                    "§aVocê vendeu um item no mercado para %s! O dinheiro foi adicionado à sua conta.",
+                                    player.getName()
+                            ));
+                        }
 
                         player.sendMessage("§aVocê comprou um item no mercado!");
                     }

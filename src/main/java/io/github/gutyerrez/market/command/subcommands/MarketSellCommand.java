@@ -1,6 +1,7 @@
 package io.github.gutyerrez.market.command.subcommands;
 
 import com.google.common.primitives.Doubles;
+import io.github.gutyerrez.core.shared.CoreProvider;
 import io.github.gutyerrez.core.spigot.commands.CustomCommand;
 import io.github.gutyerrez.market.MarketProvider;
 import io.github.gutyerrez.market.api.MarketItem;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author SrGutyerrez
@@ -58,9 +60,23 @@ public class MarketSellCommand extends CustomCommand {
                 //
                 // "§cVocê precisa esperar %s para anunciar novamente."
 
+                String cooldownName = "MARKET_ANNOUNCE";
+
+                if (CoreProvider.Cache.Local.COOLDOWNS.provide().inCooldown(player.getUniqueId(), cooldownName)) {
+                    player.sendMessage(String.format("§cVocê precisa esperar %s para anunciar novamente.", 0));
+                }
+
+                CoreProvider.Cache.Local.COOLDOWNS.provide().startCooldown(
+                        player.getUniqueId(),
+                        cooldownName,
+                        TimeUnit.SECONDS.toMillis(15)
+                );
+
                 MarketProvider.Cache.Local.MARKET_ITEM.provide().add(marketItem);
 
                 player.sendMessage("§aItem colocado a venda!");
+
+                // fazer o anúncio do item para todos no servidor
                 return;
             }
             case 2: {
