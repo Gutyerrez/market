@@ -3,7 +3,7 @@ package io.github.gutyerrez.market.inventory;
 import io.github.gutyerrez.core.spigot.inventory.ConfirmInventory;
 import io.github.gutyerrez.core.spigot.inventory.CustomInventory;
 import io.github.gutyerrez.core.spigot.inventory.PaginateInventory;
-import io.github.gutyerrez.core.spigot.misc.utils.ItemBuilder;
+import io.github.gutyerrez.core.spigot.misc.utils.old.ItemBuilder;
 import io.github.gutyerrez.market.MarketProvider;
 import io.github.gutyerrez.market.api.category.MarketCategory;
 import org.bukkit.ChatColor;
